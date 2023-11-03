@@ -5,7 +5,7 @@ import FishList from "../components/FishList";
 const HomePage = () => {
 	return (
 		<>
-    <section>
+    <section className="mx-auto">
 			<div className="container">
 				<h1 className="text-center">Home Page</h1>
 				<div className="row">

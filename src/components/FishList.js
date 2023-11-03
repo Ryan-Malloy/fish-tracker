@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { db } from "../config/firebase";
 import { get, ref } from "firebase/database";
 
@@ -10,9 +11,6 @@ function FishList() {
 		const snapshot = await get(fishRef);
 		if (snapshot.exists()) {
 			return snapshot.val();
-		} else {
-			console.log("No data available");
-			return {};
 		}
 	}
 
@@ -26,16 +24,34 @@ function FishList() {
 	return (
 		<>
 			{Object.entries(fishes).map(([key, fish]) => (
-				<div className="card" key={key}>
+				<div className="card mb-3 mx-auto" key={key}>
 					<div className="card-body">
-						<h5 className="card-title">{fish.name}</h5>
+						<div className="row align-items-center">
+							<div className="col">
+								<h5 className="card-title">{fish.name}</h5>
+							</div>
+							<div className="col-auto">
+								<small className="text-secondary">{key}</small>
+							</div>
+						</div>
+
 						<p>Type: {fish.type}</p>
 						{fish.caught && (
 							<div>
-								{fish.caught.map((catchDetails, index) => (
+								{[...fish.caught].reverse().map((catchDetails, index) => (
 									<div key={index}>
-										<p>Date: {catchDetails.date}</p>
-										<ul>
+										<a
+											data-bs-toggle="collapse"
+											href={`#collapseExample${key}-${index}`}
+											aria-expanded="false"
+											aria-controls={`collapseExample${key}-${index}`}
+										>
+											Date: {catchDetails.date}
+										</a>
+										<ul
+											className={`collapse ${index === 0 ? "show" : ""}`}
+											id={`collapseExample${key}-${index}`}
+										>
 											<li>Weight: {catchDetails.weight}</li>
 											<li>Length: {catchDetails.length}</li>
 											<li>Location: {catchDetails.location}</li>
@@ -47,7 +63,9 @@ function FishList() {
 						)}
 					</div>
 					<div className="card-footer">
-						
+						<Link to={`/fish/${key}`}>
+							<button className="btn btn-primary">View Details</button>
+						</Link>
 					</div>
 				</div>
 			))}

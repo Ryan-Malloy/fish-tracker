@@ -1,11 +1,11 @@
 import AdminForm from "../components/AdminForm";
 
-const AddEditFishPage = () => {
+const AddFishPage = () => {
 	return (
 		<>
-			<section>
+			<section className="mx-auto">
 				<div className="container">
-					<h1 className="text-center">Add/Edit Fishes</h1>
+					<h1 className="text-center">Add Fish Page</h1>
 					<div className="row">
 						<div className="col">
 							<a href="/">Home</a>
@@ -23,4 +23,4 @@ const AddEditFishPage = () => {
 	);
 };
 
-export default AddEditFishPage;
+export default AddFishPage;

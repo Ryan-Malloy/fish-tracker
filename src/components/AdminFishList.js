@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { db } from "../config/firebase";
 import { get, ref } from "firebase/database";
 
@@ -10,9 +11,6 @@ function FishList() {
 		const snapshot = await get(fishRef);
 		if (snapshot.exists()) {
 			return snapshot.val();
-		} else {
-			console.log("No data available");
-			return {};
 		}
 	}
 
@@ -26,16 +24,31 @@ function FishList() {
 	return (
 		<>
 			{Object.entries(fishes).map(([key, fish]) => (
-				<div className="card" key={key}>
+				<div className="card mb-3 mx-auto" key={key}>
 					<div className="card-body">
-						<h5 className="card-title">{fish.name}</h5>
+						<div className="row align-items-center">
+							<div className="col">
+								<h5 className="card-title">{fish.name}</h5>
+							</div>
+							<div className="col-auto">
+								<small className="text-secondary">{key}</small>
+							</div>
+						</div>
+
 						<p>Type: {fish.type}</p>
 						{fish.caught && (
 							<div>
-								{fish.caught.map((catchDetails, index) => (
+								{[...fish.caught].reverse().map((catchDetails, index) => (
 									<div key={index}>
-										<p>Date: {catchDetails.date}</p>
-										<ul>
+										<a
+											data-bs-toggle="collapse"
+											href={`#collapse-${key}-${index}`}
+											aria-expanded="false"
+											aria-controls={`collapse-${key}-${index}`}
+										>
+											Date: {catchDetails.date}
+										</a>
+										<ul className="collapse" id={`collapse-${key}-${index}`}>
 											<li>Weight: {catchDetails.weight}</li>
 											<li>Length: {catchDetails.length}</li>
 											<li>Location: {catchDetails.location}</li>
@@ -48,13 +61,15 @@ function FishList() {
 					</div>
 					<div className="card-footer">
 						<div className="row">
-                            <div className="col">
-                                <button className="btn btn-primary">Edit</button>
-                            </div>
-                            <div className="col-auto">
-                                <button className="btn btn-danger">Delete</button>
-                            </div>
-                        </div>
+							<div className="col">
+								<Link to={`edit/${key}`}>
+									<button className="btn btn-primary">Edit Details</button>
+								</Link>
+							</div>
+							<div className="col-auto">
+								<button className="btn btn-danger">Delete</button>
+							</div>
+						</div>
 					</div>
 				</div>
 			))}

@@ -20,7 +20,7 @@ const AdminLogin = () => {
 	};
 
 	return (
-		<section id="login">
+		<section id="login" className="mx-auto">
 			<h1 className="text-center">Admin Login</h1>
 			{error && <p className="text-danger text-center">{error}</p>}
 			<form className="mx-auto" onSubmit={handleSubmit}>

@@ -6,7 +6,8 @@ import HomePage from "./pages/HomePage";
 import FishDetailPage from "./pages/FishDetailPage";
 import AdminLoginPage from "./pages/AdminLoginPage";
 import AdminDashboardPage from "./pages/AdminDashboardPage";
-import AddEditFishPage from "./pages/AddEditFishPage";
+import EditFishPage from "./pages/EditFishPage";
+import AddFishPage from "./pages/AddFishPage";
 import NotFoundPage from "./pages/NotFoundPage";
 
 function App() {
@@ -19,8 +20,9 @@ function App() {
 					<Route path="/admin/login" element={<AdminLoginPage />} />
 					<Route path="/admin" element={<PrivateRoute />}>
 						<Route index element={<AdminDashboardPage />} />
-						<Route path="add" element={<AddEditFishPage />} />
-						<Route path="edit/:id" element={<AddEditFishPage />} />
+						<Route path="add" element={<AddFishPage />} />
+						<Route path="edit" element={<EditFishPage />} />
+						<Route path="edit/:id" element={<EditFishPage />} />
 					</Route>
 					<Route path="*" element={<NotFoundPage />} />
 				</Routes>

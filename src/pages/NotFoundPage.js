@@ -1,8 +1,8 @@
 const NotFoundPage = () => {
   return (
-    <div>
-        <h1>Page not found</h1>
-    </div>
+    <section className="mx-auto">
+        <h1 className="text-center">Page not found</h1>
+    </section>
   )
 }
 

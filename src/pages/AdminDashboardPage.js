@@ -3,7 +3,7 @@ import AdminFishList from "../components/AdminFishList"
 const AdminDashboardPage = () => {
 	return (
 		<>
-			<section>
+			<section className="mx-auto">
 				<div className="container">
 					<h1 className="text-center">Admin Dashboard Page</h1>
 					<div className="row">
