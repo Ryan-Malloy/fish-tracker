@@ -1,16 +1,19 @@
 import { useState } from "react";
 import { signInWithEmailAndPassword } from "../config/firebase.js";
+import { useNavigate } from "react-router-dom";
 
 const AdminLogin = () => {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 
 		try {
 			await signInWithEmailAndPassword(email, password);
+      navigate('/admin');
 		} catch (err) {
 			setError(err.message);
 		}
