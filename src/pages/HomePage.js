@@ -66,6 +66,7 @@ const HomePage = () => {
 			<section>
 				<div className="container">
 					<select
+						className="form-control mx-auto"
 						value={sortMethod}
 						onChange={(e) => setSortMethod(e.target.value)}
 					>
@@ -76,7 +77,9 @@ const HomePage = () => {
 				</div>
 			</section>
 			<section>
-				<FishList fishes={sortedFishes} />
+				<div className="container">
+					<FishList fishes={sortedFishes} />
+				</div>
 			</section>
 		</>
 	);

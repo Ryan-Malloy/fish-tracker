@@ -2,7 +2,7 @@ section {
     padding: 1rem;
 }
 
-form, .card {
+form, .card, select {
     max-width: 600px;
 }
 
