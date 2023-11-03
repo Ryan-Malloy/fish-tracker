@@ -1,67 +1,31 @@
-import "bootstrap/dist/css/bootstrap.min.css";
-import Header from "./components/Header";
-import Fishes from "./components/Fishes";
-import { useState } from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { AuthProvider } from "./contexts/AuthContext";
+import PrivateRoute from "./components/PrivateRoute";
+
+import HomePage from "./pages/HomePage";
+import FishDetailPage from "./pages/FishDetailPage";
+import AdminLoginPage from "./pages/AdminLoginPage";
+import AdminDashboardPage from "./pages/AdminDashboardPage";
+import AddEditFishPage from "./pages/AddEditFishPage";
+import NotFoundPage from "./pages/NotFoundPage";
 
 function App() {
-	const [fishes, setFishes] = useState([
-		{
-			id: 1,
-			name: "Fish 1",
-			type: "Type 1",
-			caught: [
-				{
-          id: 1,
-					date: "November 2",
-					weight: 20,
-					length: 20,
-					location: "South Pond",
-					lure: "Green Lure",
-				},
-				{
-          id: 2,
-					date: "November 1",
-					weight: 18,
-					length: 19,
-					location: "North Pond",
-					lure: "Green Lure",
-				},
-			],
-		},
-		{
-			id: 2,
-			name: "Fish 2",
-			type: "Type 2",
-			caught: [
-				{
-          id: 1,
-					date: "October 31",
-					weight: 11,
-					length: 17,
-					location: "South Pond",
-					lure: "Red Lure",
-				},
-				{
-          id: 2,
-					date: "October 30",
-					weight: 10,
-					length: 17,
-					location: "North Pond",
-					lure: "Red Lure",
-				},
-			],
-		},
-	]);
-
 	return (
-		<>
-			<section>
-				<div className="container align-items-center justify-content-center">
-					<Header />
-					<Fishes fishes={fishes}/>
-				</div>
-			</section>
-		</>
+		<AuthProvider>
+			<Router>
+				<Routes>
+					<Route path="/" element={<HomePage />} />
+					<Route path="/fish/:id" element={<FishDetailPage />} />
+					<Route path="/admin/login" element={<AdminLoginPage />} />
+					<Route path="/admin" element={<PrivateRoute />}>
+						<Route index element={<AdminDashboardPage />} />
+						<Route path="add" element={<AddEditFishPage />} />
+						<Route path="edit/:id" element={<AddEditFishPage />} />
+					</Route>
+					<Route path="*" element={<NotFoundPage />} />
+				</Routes>
+			</Router>
+		</AuthProvider>
 	);
 }
 
