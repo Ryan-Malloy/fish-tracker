@@ -38,7 +38,6 @@ const AdminForm = () => {
 				},
 			],
 		});
-		// Reset the form data after submission
 		setFormData({
 			name: "",
 			type: "",
@@ -52,10 +51,6 @@ const AdminForm = () => {
 
 	return (
 		<form className="mx-auto" onSubmit={handleSubmit}>
-			{/* <div class="form-floating mb-3">
-                <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-                <label for="floatingInput">Email address</label>
-            </div> */}
 			<div className="row">
 				<div className="col">
 					<div className="form-floating mb-3">
@@ -158,9 +153,16 @@ const AdminForm = () => {
 						required
 					/>
 				</div>
-				<button className="btn btn-primary" type="submit">
-					Add Fish
-				</button>
+			</div>
+			<div className="row align-items-center">
+				<div className="col">
+					<button className="btn btn-primary w-100" type="submit">
+						Add Fish
+					</button>
+				</div>
+				<div className="col-auto">
+					<a href="/admin">Cancel</a>
+				</div>
 			</div>
 		</form>
 	);
