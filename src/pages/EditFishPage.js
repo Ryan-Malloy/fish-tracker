@@ -248,7 +248,7 @@ function EditFishPage() {
 							</div>
 						))}
 
-						<div className="row align-items-center">
+						<div className="row align-items-center mb-3">
 							<div className="col">
 								<button className="btn btn-success w-100" type="submit">
 									Save Changes

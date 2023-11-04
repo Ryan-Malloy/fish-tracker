@@ -45,18 +45,23 @@ const Navbar = () => {
 					</button>
 					<div class="collapse navbar-collapse" id="navbarNav">
 						<div class="navbar-nav">
-							<a class="nav-link active" aria-current="page" href="/">
+							<a class="nav-link" aria-current="page" href="/">
 								Home
 							</a>
 						</div>
 						<div className="navbar-nav ms-auto">
 							{isAdminLoggedIn ? (
-								<button
-									className="btn btn-link nav-link"
-									onClick={handleSignOut}
-								>
-									Sign Out
-								</button>
+								<div className="d-flex align-items-center">
+									<a className="nav-link" href="/admin">
+										Dashboard
+									</a>
+									<button
+										className="btn btn-link nav-link"
+										onClick={handleSignOut}
+									>
+										Sign Out
+									</button>
+								</div>
 							) : (
 								<a className="nav-link" href="/admin/login">
 									Admin Login
