@@ -3,24 +3,24 @@ import { useParams, useNavigate } from "react-router-dom";
 import { db } from "../config/firebase";
 import { get, ref, set } from "firebase/database";
 
+const initialFormData = {
+	name: "",
+	type: "",
+	catches: [
+		{
+			date: "",
+			weight: "",
+			length: "",
+			location: "",
+			lure: "",
+		},
+	],
+};
+
 function EditFishPage() {
 	const { id } = useParams();
 	const [fish, setFish] = useState(null);
 	const navigate = useNavigate();
-
-	const initialFormData = {
-		name: "",
-		type: "",
-		catches: [
-			{
-				date: "",
-				weight: "",
-				length: "",
-				location: "",
-				lure: "",
-			},
-		],
-	};
 
 	const [formData, setFormData] = useState(initialFormData);
 
@@ -166,7 +166,7 @@ function EditFishPage() {
 
 						{formData.catches.map((catchItem, index) => (
 							<div key={index}>
-								<h5>Catch: {index+1}</h5>
+								<h5>Catch: {index + 1}</h5>
 								<div className="row">
 									<div className="col">
 										<div className="form-floating mb-3">
