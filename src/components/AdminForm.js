@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { ref, push, set } from "firebase/database";
 import { db } from "../config/firebase";
+import { useNavigate } from "react-router-dom";
 
 const AdminForm = () => {
+	const navigate = useNavigate();
 	const [formData, setFormData] = useState({
 		name: "",
 		type: "",
@@ -47,6 +49,8 @@ const AdminForm = () => {
 			location: "",
 			lure: "",
 		});
+		alert("Added Successfully!");
+		navigate("/admin");
 	};
 
 	return (
@@ -137,22 +141,21 @@ const AdminForm = () => {
 							id="fishLure"
 							required
 						/>
-						<label for="fishLure">Lure Type</label>
+						<label forHTML="fishLure">Lure Type</label>
 					</div>
 				</div>
 			</div>
-			<div className="row">
-				<div className="form-floating mb-3">
-					<input
-						className="form-control"
-						type="date"
-						name="date"
-						value={formData.date}
-						onChange={handleChange}
-						id="fishDate"
-						required
-					/>
-				</div>
+			<div className="form-floating mb-3">
+				<input
+					className="form-control"
+					type="date"
+					name="date"
+					value={formData.date}
+					onChange={handleChange}
+					id="fishDate"
+					required
+				/>
+				<label htmlFor="fishDate">Date</label>
 			</div>
 			<div className="row align-items-center">
 				<div className="col">

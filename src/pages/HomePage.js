@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { db } from "../config/firebase";
 import { get, ref } from "firebase/database";
 import FishList from "../components/FishList";
@@ -65,15 +65,19 @@ const HomePage = () => {
 			</section>
 			<section>
 				<div className="container">
-					<select
-						className="form-control mx-auto"
-						value={sortMethod}
-						onChange={(e) => setSortMethod(e.target.value)}
-					>
-						<option value="mostRecent">Most Recent</option>
-						<option value="oldest">Oldest</option>
-						<option value="popular">Popular</option>
-					</select>
+					<div className="filter mx-auto">
+						<label htmlFor="sort">Filter</label>
+						<select
+							className="form-select mx-auto"
+							value={sortMethod}
+							onChange={(e) => setSortMethod(e.target.value)}
+							id="sort"
+						>
+							<option value="mostRecent">Most Recent</option>
+							<option value="oldest">Oldest</option>
+							<option value="popular">Popular</option>
+						</select>
+					</div>
 				</div>
 			</section>
 			<section>

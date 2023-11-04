@@ -32,7 +32,6 @@ function EditFishPage() {
 				const fetchedFish = snapshot.val();
 				setFish(fetchedFish);
 
-				// Use the fetched data and modify structure for catches
 				setFormData({
 					name: fetchedFish.name,
 					type: fetchedFish.type,
@@ -152,7 +151,7 @@ function EditFishPage() {
 
 						<div className="row mb-1 align-items-center">
 							<div className="col">
-								<h3>Catch Details</h3>
+								<h2>Catch Details</h2>
 							</div>
 							<div className="col-auto mb-1">
 								<button
@@ -163,11 +162,11 @@ function EditFishPage() {
 									Add a Catch
 								</button>
 							</div>
-							<hr></hr>
 						</div>
 
 						{formData.catches.map((catchItem, index) => (
 							<div key={index}>
+								<h5>Catch: {index+1}</h5>
 								<div className="row">
 									<div className="col">
 										<div className="form-floating mb-3">

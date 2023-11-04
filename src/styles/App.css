@@ -2,10 +2,15 @@ section {
     padding: 1rem;
 }
 
-form, .card, select {
+form, .card, .filter {
     max-width: 600px;
 }
 
 p {
     line-height: .8;
+}
+
+hr {
+    margin: 0;
+    margin-bottom: 11px;
 }

@@ -1,58 +1,90 @@
-import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { remove, ref } from "firebase/database";
 import { db } from "../config/firebase";
-import { get, ref } from "firebase/database";
 
-function FishList() {
-	const [fishes, setFishes] = useState({});
+function AdminFishList({ fishes, onDeleteFish }) {
+	function deleteFish(key, name) {
+		const isConfirmed = window.confirm(
+			`Are you sure you want to delete ${name}?`
+		);
+		if (!isConfirmed) return;
 
-	async function fetchFishes() {
-		const fishRef = ref(db, "fishes");
-		const snapshot = await get(fishRef);
-		if (snapshot.exists()) {
-			return snapshot.val();
-		}
+		const fishRef = ref(db, `fishes/${key}`);
+		remove(fishRef)
+			.then(() => {
+				window.alert(`${name} deleted.`);
+				
+			})
+			.catch((error) => {
+				window.alert("Failed to delete fish. Please try again.");
+			});
 	}
 
-	useEffect(() => {
-		async function fetchData() {
-			const data = await fetchFishes();
-			setFishes(data);
-		}
-		fetchData();
-	}, []);
 	return (
 		<>
-			{Object.entries(fishes).map(([key, fish]) => (
-				<div className="card mb-3 mx-auto" key={key}>
-					<div className="card-body">
+			{fishes.map((fish) => (
+				<div className="card mb-4 mx-auto" key={fish.key}>
+					<div className="card-header">
 						<div className="row align-items-center">
 							<div className="col">
-								<h5 className="card-title">{fish.name}</h5>
+								<h3 className="card-title">{fish.name}</h3>
 							</div>
 							<div className="col-auto">
-								<small className="text-secondary">{key}</small>
+								<small className="text-secondary">{fish.key}</small>
 							</div>
 						</div>
 
-						<p>Type: {fish.type}</p>
+						<p className="text-secondary">Type: {fish.type}</p>
+					</div>
+					<div className="card-body">
+						<div className="row">
+							<div className="col">
+								<p>
+									<b>Weight:</b>{" "}
+									{fish.caught && fish.caught.length > 0
+										? fish.caught[fish.caught.length - 1].weight + " oz"
+										: "N/A"}
+								</p>
+							</div>
+							<div className="col-auto">
+								<p>
+									<b>Length:</b>{" "}
+									{fish.caught && fish.caught.length > 0
+										? fish.caught[fish.caught.length - 1].length + " cm"
+										: "N/A"}
+								</p>
+							</div>
+						</div>
+						<hr></hr>
+						<h5>Catches</h5>
 						{fish.caught && (
 							<div>
 								{[...fish.caught].reverse().map((catchDetails, index) => (
 									<div key={index}>
 										<a
 											data-bs-toggle="collapse"
-											href={`#collapse-${key}-${index}`}
+											href={`#collapseFish${fish.key}Catch${index}`}
 											aria-expanded="false"
-											aria-controls={`collapse-${key}-${index}`}
+											aria-controls={`collapseFish${fish.key}Catch${index}`}
 										>
 											Date: {catchDetails.date}
 										</a>
-										<ul className="collapse" id={`collapse-${key}-${index}`}>
-											<li>Weight: {catchDetails.weight}</li>
-											<li>Length: {catchDetails.length}</li>
-											<li>Location: {catchDetails.location}</li>
-											<li>Lure: {catchDetails.lure}</li>
+										<ul
+											className="collapse"
+											id={`collapseFish${fish.key}Catch${index}`}
+										>
+											<li>
+												<b>Weight:</b> {catchDetails.weight} oz
+											</li>
+											<li>
+												<b>Length:</b> {catchDetails.length} cm
+											</li>
+											<li>
+												<b>Location:</b> {catchDetails.location}
+											</li>
+											<li>
+												<b>Lure:</b> {catchDetails.lure}
+											</li>
 										</ul>
 									</div>
 								))}
@@ -62,12 +94,17 @@ function FishList() {
 					<div className="card-footer">
 						<div className="row">
 							<div className="col">
-								<Link to={`edit/${key}`}>
+								<Link to={`edit/${fish.key}`}>
 									<button className="btn btn-primary">Edit Details</button>
 								</Link>
 							</div>
 							<div className="col-auto">
-								<button className="btn btn-danger">Delete</button>
+								<button
+									className="btn btn-danger"
+									onClick={() => deleteFish(fish.key, fish.name)}
+								>
+									Delete
+								</button>
 							</div>
 						</div>
 					</div>
@@ -77,4 +114,4 @@ function FishList() {
 	);
 }
 
-export default FishList;
+export default AdminFishList;
