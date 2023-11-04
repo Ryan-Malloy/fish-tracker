@@ -1,16 +1,18 @@
 import { useState, useEffect } from "react";
 import { db } from "../config/firebase";
 import { get, ref } from "firebase/database";
-import AdminFishList from "../components/AdminFishList"
+import AdminFishList from "../components/AdminFishList";
 
 const AdminDashboardPage = () => {
 	const [fishes, setFishes] = useState({});
 	const [sortMethod, setSortMethod] = useState("mostRecent");
 	const sortedFishes = sortFishes(fishes);
-	
-	function removeFishFromState(key) {
-        setFishes(prevFishes => prevFishes.filter(fish => fish.key !== key));
-    }
+
+	const deleteFish = (deletedFishKey) => {
+		const updatedFishes = { ...fishes };
+		delete updatedFishes[deletedFishKey];
+		setFishes(updatedFishes);
+	};
 
 	async function fetchFishes() {
 		const fishRef = ref(db, "fishes");
@@ -51,39 +53,41 @@ const AdminDashboardPage = () => {
 		fetchData();
 	}, []);
 
-	
-
 	return (
 		<>
-			<section className="mx-auto">
-				<div className="container">
-					<h1 className="text-center">Admin Dashboard Page</h1>
+			<section>
+				<div className="container mx-auto">
 					<div className="row">
 						<div className="col">
-							<a href="/">Home</a>
+							<h1 className="text-center">Admin Dashboard Page</h1>
 						</div>
-						<div className="col-auto">
-							<a href="admin/add">Add</a>
-						</div>
+						<div className="col-auto"></div>
 					</div>
 				</div>
 			</section>
 			<section>
-				<div className="container">
-					<select
-						className="form-select mx-auto"
-						value={sortMethod}
-						onChange={(e) => setSortMethod(e.target.value)}
-					>
-						<option value="mostRecent">Most Recent</option>
-						<option value="oldest">Oldest</option>
-						<option value="popular">Popular</option>
-					</select>
+				<div className="container mx-auto">
+					<label htmlFor="sort">Filter</label>
+					<div className="input-group">
+						<select
+							className="form-select mx-auto"
+							value={sortMethod}
+							onChange={(e) => setSortMethod(e.target.value)}
+							id="filter"
+						>
+							<option value="mostRecent">Most Recent</option>
+							<option value="oldest">Oldest</option>
+							<option value="popular">Popular</option>
+						</select>
+						<a className="btn btn-primary" href="admin/add">
+							Add
+						</a>
+					</div>
 				</div>
 			</section>
 			<section>
-				<div className="container">
-				<AdminFishList fishes={fishes} onDeleteFish={removeFishFromState} />
+				<div className="container mx-auto">
+					<AdminFishList fishes={sortedFishes} onDeleteFish={deleteFish} />
 				</div>
 			</section>
 		</>

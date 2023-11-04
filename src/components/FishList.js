@@ -6,7 +6,7 @@ function FishList({ fishes }) {
 			{fishes.map((fish) => (
 				<div className="card mb-4 mx-auto" key={fish.key}>
 					<div className="card-header">
-						<div className="row align-items-center">
+						<div className="row">
 							<div className="col">
 								<h3 className="card-title">{fish.name}</h3>
 							</div>

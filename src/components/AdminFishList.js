@@ -13,7 +13,9 @@ function AdminFishList({ fishes, onDeleteFish }) {
 		remove(fishRef)
 			.then(() => {
 				window.alert(`${name} deleted.`);
-				
+				if (onDeleteFish) {
+					onDeleteFish(key);
+				}
 			})
 			.catch((error) => {
 				window.alert("Failed to delete fish. Please try again.");
@@ -25,7 +27,7 @@ function AdminFishList({ fishes, onDeleteFish }) {
 			{fishes.map((fish) => (
 				<div className="card mb-4 mx-auto" key={fish.key}>
 					<div className="card-header">
-						<div className="row align-items-center">
+						<div className="row">
 							<div className="col">
 								<h3 className="card-title">{fish.name}</h3>
 							</div>
@@ -95,12 +97,15 @@ function AdminFishList({ fishes, onDeleteFish }) {
 						<div className="row">
 							<div className="col">
 								<Link to={`edit/${fish.key}`}>
-									<button className="btn btn-primary">Edit Details</button>
+									<button className="btn btn-primary ">
+										Edit Details
+									</button>
 								</Link>
 							</div>
+
 							<div className="col-auto">
 								<button
-									className="btn btn-danger"
+									className="btn btn-outline-danger"
 									onClick={() => deleteFish(fish.key, fish.name)}
 								>
 									Delete

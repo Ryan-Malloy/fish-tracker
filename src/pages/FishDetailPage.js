@@ -31,17 +31,7 @@ function FishDetailPage({ fishes }) {
 	return (
 		<>
 			<section>
-				<div className="container">
-					<h1 className="text-center">View Fish Page</h1>
-					<div className="row">
-						<div className="col">
-							<a href="/">Back</a>
-						</div>
-					</div>
-				</div>
-			</section>
-			<section>
-				<div className="container">
+				<div className="container mx-auto">
 					<div>
 						{fish ? (
 							<div className="card mb-3 mx-auto">
@@ -117,10 +107,18 @@ function FishDetailPage({ fishes }) {
 														className="collapse show"
 														id={`collapseFish${fish.key}Catch${index}`}
 													>
-														<li>Weight: {catchDetails.weight}</li>
-														<li>Length: {catchDetails.length}</li>
-														<li>Location: {catchDetails.location}</li>
-														<li>Lure: {catchDetails.lure}</li>
+														<li>
+															<b>Weight:</b> {catchDetails.weight}
+														</li>
+														<li>
+															<b>Length:</b> {catchDetails.length}
+														</li>
+														<li>
+															<b>Location:</b> {catchDetails.location}
+														</li>
+														<li>
+															<b>Lure:</b> {catchDetails.lure}
+														</li>
 													</ul>
 												</div>
 											))}
@@ -129,8 +127,13 @@ function FishDetailPage({ fishes }) {
 								</div>
 							</div>
 						) : (
-							<p>Loading fish details...</p>
+							<p className="text-center mt-5">Loading fish details...</p>
 						)}
+					</div>
+					<div className="row">
+						<div className="col">
+							<a href="/">Back</a>
+						</div>
 					</div>
 				</div>
 			</section>

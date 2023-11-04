@@ -50,21 +50,8 @@ const HomePage = () => {
 
 	return (
 		<>
-			<section className="mx-auto">
-				<div className="container">
-					<h1 className="text-center">Home Page</h1>
-					<div className="row">
-						<div className="col">
-							<a href="admin/login">Admin Login</a>
-						</div>
-						<div className="col-auto">
-							<a href="/admin">Admin Dashboard</a>
-						</div>
-					</div>
-				</div>
-			</section>
 			<section>
-				<div className="container">
+				<div className="container mx-auto">
 					<div className="filter mx-auto">
 						<label htmlFor="sort">Filter</label>
 						<select

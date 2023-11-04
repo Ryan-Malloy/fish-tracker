@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { AuthProvider } from "./contexts/AuthContext";
 import PrivateRoute from "./components/PrivateRoute";
+import Navbar from "./components/Navbar";
 
 import HomePage from "./pages/HomePage";
 import FishDetailPage from "./pages/FishDetailPage";
@@ -14,6 +15,7 @@ function App() {
 	return (
 		<AuthProvider>
 			<Router>
+				<Navbar/>
 				<Routes>
 					<Route path="/" element={<HomePage />} />
 					<Route path="/fish/:id" element={<FishDetailPage />} />

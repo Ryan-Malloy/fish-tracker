@@ -2,7 +2,7 @@ section {
     padding: 1rem;
 }
 
-form, .card, .filter {
+form, .card, .filter, .container {
     max-width: 600px;
 }
 
