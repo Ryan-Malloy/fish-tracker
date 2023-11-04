@@ -130,11 +130,9 @@ function FishDetailPage({ fishes }) {
 							<p className="text-center mt-5">Loading fish details...</p>
 						)}
 					</div>
-					<div className="row">
-						<div className="col">
-							<a href="/">Back</a>
-						</div>
-					</div>
+					<p>
+						<a href="/">Back to Home</a>
+					</p>
 				</div>
 			</section>
 		</>

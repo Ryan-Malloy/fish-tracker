@@ -32,7 +32,7 @@ const AdminLogin = () => {
 						value={email}
 						id="email"
 						onChange={(e) => setEmail(e.target.value)}
-            required
+						required
 					/>
 					<label for="email">Email address</label>
 				</div>
@@ -43,7 +43,7 @@ const AdminLogin = () => {
 						placeholder="Password"
 						value={password}
 						onChange={(e) => setPassword(e.target.value)}
-            required
+						required
 					/>
 					<label for="passowrd">Password</label>
 				</div>
@@ -51,7 +51,7 @@ const AdminLogin = () => {
 				<button className="btn btn-primary w-100 mb-3" type="submit">
 					Login
 				</button>
-        <a href="/">Back to Home</a>
+				<p>Not supposed to be here? <a href="/">Back to Home</a></p>
 			</form>
 		</section>
 	);

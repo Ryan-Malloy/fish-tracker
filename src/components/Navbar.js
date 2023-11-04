@@ -1,6 +1,30 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { auth, signOut } from "../config/firebase";
 
 const Navbar = () => {
+	const [isAdminLoggedIn, setAdminLoggedIn] = useState(false);
+
+	useEffect(() => {
+		const unsubscribe = auth.onAuthStateChanged((user) => {
+			if (user) {
+				setAdminLoggedIn(true);
+			} else {
+				setAdminLoggedIn(false);
+			}
+		});
+
+		return () => unsubscribe();
+	}, []);
+
+	const handleSignOut = async () => {
+		try {
+			await signOut();
+			alert("Logged out successfully!");
+		} catch (error) {
+			alert("Failed to log out.");
+		}
+	};
+
 	return (
 		<div>
 			<nav class="navbar navbar-expand-lg bg-body-tertiary">
@@ -26,9 +50,18 @@ const Navbar = () => {
 							</a>
 						</div>
 						<div className="navbar-nav ms-auto">
-							<a class="nav-link" href="/admin/login">
-								Admin Login
-							</a>
+							{isAdminLoggedIn ? (
+								<button
+									className="btn btn-link nav-link"
+									onClick={handleSignOut}
+								>
+									Sign Out
+								</button>
+							) : (
+								<a className="nav-link" href="/admin/login">
+									Admin Login
+								</a>
+							)}
 						</div>
 					</div>
 				</div>
