@@ -26,6 +26,13 @@ function AdminFishList({ fishes, onDeleteFish }) {
 		<>
 			{fishes.map((fish) => (
 				<div className="card mb-4 mx-auto" key={fish.key}>
+					{fish.image && (
+						<img
+							src={fish.image}
+							className="card-img-top"
+							alt={`${fish.name}`}
+						/>
+					)}
 					<div className="card-header">
 						<div className="row">
 							<div className="col">
@@ -97,9 +104,7 @@ function AdminFishList({ fishes, onDeleteFish }) {
 						<div className="row">
 							<div className="col">
 								<Link to={`edit/${fish.key}`}>
-									<button className="btn btn-primary ">
-										Edit Details
-									</button>
+									<button className="btn btn-primary ">Edit Details</button>
 								</Link>
 							</div>
 

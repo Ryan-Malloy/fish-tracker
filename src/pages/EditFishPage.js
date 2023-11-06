@@ -6,6 +6,7 @@ import { get, ref, set } from "firebase/database";
 const initialFormData = {
 	name: "",
 	type: "",
+	image: null,
 	catches: [
 		{
 			date: "",
@@ -67,6 +68,13 @@ function EditFishPage() {
 		}));
 	};
 
+	const handleImageChange = (event) => {
+		setFormData((prevState) => ({
+			...prevState,
+			image: event.target.files[0],
+		}));
+	};
+
 	const handleCatchChange = (event, catchIndex) => {
 		const { name, value } = event.target;
 
@@ -90,6 +98,7 @@ function EditFishPage() {
 		set(fishRef, {
 			name: formData.name,
 			type: formData.type,
+			image: formData.image,
 			caught: formData.catches.map((catchItem) => ({
 				date: catchItem.date,
 				weight: parseFloat(catchItem.weight),
@@ -146,6 +155,17 @@ function EditFishPage() {
 									/>
 									<label htmlFor="fishType">Fish Type</label>
 								</div>
+							</div>
+							<div className="mb-3">
+								<label htmlFor="fishImage">Fish Image</label>
+								<input
+									className="form-control"
+									type="file"
+									name="image"
+									value={formData.image}
+									onChange={handleImageChange}
+									id="fishImage"
+								/>
 							</div>
 						</div>
 

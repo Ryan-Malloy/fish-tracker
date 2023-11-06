@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { ref, push, set } from "firebase/database";
 import { db } from "../config/firebase";
+import { uploadImage } from "../config/firebase";
 import { useNavigate } from "react-router-dom";
 
 const AdminForm = () => {
@@ -13,6 +14,7 @@ const AdminForm = () => {
 		length: "",
 		location: "",
 		lure: "",
+		image: null,
 	});
 
 	const handleChange = (event) => {
@@ -23,13 +25,28 @@ const AdminForm = () => {
 		}));
 	};
 
-	const handleSubmit = (event) => {
+	const handleImageChange = (event) => {
+		setFormData((prevState) => ({
+			...prevState,
+			image: event.target.files[0],
+		}));
+	};
+
+	const handleSubmit = async (event) => {
 		event.preventDefault();
+		let imageUrl = "";
+
+		if (formData.image) {
+			const filePath = `fish-images/${formData.image.name}`;
+			imageUrl = await uploadImage(formData.image, filePath);
+		}
+
 		const fishRef = ref(db, "fishes");
 		const newFishRef = push(fishRef);
-		set(newFishRef, {
+		await set(newFishRef, {
 			name: formData.name,
 			type: formData.type,
+			image: imageUrl,
 			caught: [
 				{
 					date: formData.date,
@@ -40,6 +57,7 @@ const AdminForm = () => {
 				},
 			],
 		});
+
 		setFormData({
 			name: "",
 			type: "",
@@ -48,7 +66,9 @@ const AdminForm = () => {
 			length: "",
 			location: "",
 			lure: "",
+			image: null,
 		});
+
 		alert("Added Successfully!");
 		navigate("/admin");
 	};
@@ -144,6 +164,16 @@ const AdminForm = () => {
 						<label forHTML="fishLure">Lure Type</label>
 					</div>
 				</div>
+			</div>
+			<div className="mb-3">
+				<label htmlFor="fishImage">Fish Image</label>
+				<input
+					className="form-control"
+					type="file"
+					name="image"
+					onChange={handleImageChange}
+					id="fishImage"
+				/>
 			</div>
 			<div className="form-floating mb-3">
 				<input

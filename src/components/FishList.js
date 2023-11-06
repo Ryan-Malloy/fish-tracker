@@ -5,7 +5,15 @@ function FishList({ fishes }) {
 		<>
 			{fishes.map((fish) => (
 				<div className="card mb-4 mx-auto" key={fish.key}>
-					<div className="card-header">
+					{fish.image && (
+						<img
+							src={fish.image}
+							className="card-img-top"
+							alt={`${fish.name}`}
+						/>
+					)}
+					
+					<div className="card-body">
 						<div className="row">
 							<div className="col">
 								<h3 className="card-title">{fish.name}</h3>
@@ -16,8 +24,6 @@ function FishList({ fishes }) {
 						</div>
 
 						<p className="text-secondary">Type: {fish.type}</p>
-					</div>
-					<div className="card-body">
 						<div className="row">
 							<div className="col">
 								<p>
@@ -54,10 +60,18 @@ function FishList({ fishes }) {
 											className="collapse"
 											id={`collapseFish${fish.key}Catch${index}`}
 										>
-											<li><b>Weight:</b> {catchDetails.weight} oz</li>
-											<li><b>Length:</b> {catchDetails.length} cm</li>
-											<li><b>Location:</b> {catchDetails.location}</li>
-											<li><b>Lure:</b> {catchDetails.lure}</li>
+											<li>
+												<b>Weight:</b> {catchDetails.weight} oz
+											</li>
+											<li>
+												<b>Length:</b> {catchDetails.length} cm
+											</li>
+											<li>
+												<b>Location:</b> {catchDetails.location}
+											</li>
+											<li>
+												<b>Lure:</b> {catchDetails.lure}
+											</li>
 										</ul>
 									</div>
 								))}
