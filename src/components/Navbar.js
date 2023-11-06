@@ -44,26 +44,29 @@ const Navbar = () => {
 						<span class="navbar-toggler-icon"></span>
 					</button>
 					<div class="collapse navbar-collapse" id="navbarNav">
-						<div class="navbar-nav">
-							<a class="nav-link" aria-current="page" href="/">
-								Home
-							</a>
-						</div>
-						<div className="navbar-nav ms-auto">
+						<ul class="navbar-nav">
+							<li className="nav-item">
+								<a class="nav-link" aria-current="page" href="/">
+									Home
+								</a>
+							</li>
 							{isAdminLoggedIn ? (
-								<div className="d-flex align-items-center">
+								<li className="nav-item">
 									<a className="nav-link" href="/admin">
 										Dashboard
 									</a>
-									<button
-										className="btn btn-link nav-link"
-										onClick={handleSignOut}
-									>
-										Sign Out
-									</button>
-								</div>
+								</li>
 							) : (
-								<a className="nav-link" href="/admin/login">
+								<div></div>
+							)}
+						</ul>
+						<div className="ms-auto">
+							{isAdminLoggedIn ? (
+								<button className="btn btn-outline-secondary" onClick={handleSignOut}>
+									Sign Out
+								</button>
+							) : (
+								<a className="btn btn-secondary" href="/admin/login">
 									Admin Login
 								</a>
 							)}

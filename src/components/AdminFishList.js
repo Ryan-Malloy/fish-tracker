@@ -45,26 +45,29 @@ function AdminFishList({ fishes, onDeleteFish }) {
 
 						<p className="text-secondary">Type: {fish.type}</p>
 					</div>
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item">
+							<div className="row">
+								<div className="col">
+
+										<b>Weight:</b>{" "}
+										{fish.caught && fish.caught.length > 0
+											? fish.caught[fish.caught.length - 1].weight + " oz"
+											: "N/A"}
+
+								</div>
+								<div className="col-auto">
+
+										<b>Length:</b>{" "}
+										{fish.caught && fish.caught.length > 0
+											? fish.caught[fish.caught.length - 1].length + " cm"
+											: "N/A"}
+
+								</div>
+							</div>
+						</li>
+					</ul>
 					<div className="card-body">
-						<div className="row">
-							<div className="col">
-								<p>
-									<b>Weight:</b>{" "}
-									{fish.caught && fish.caught.length > 0
-										? fish.caught[fish.caught.length - 1].weight + " oz"
-										: "N/A"}
-								</p>
-							</div>
-							<div className="col-auto">
-								<p>
-									<b>Length:</b>{" "}
-									{fish.caught && fish.caught.length > 0
-										? fish.caught[fish.caught.length - 1].length + " cm"
-										: "N/A"}
-								</p>
-							</div>
-						</div>
-						<hr></hr>
 						<h5>Catches</h5>
 						{fish.caught && (
 							<div>

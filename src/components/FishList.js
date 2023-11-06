@@ -12,8 +12,8 @@ function FishList({ fishes }) {
 							alt={`${fish.name}`}
 						/>
 					)}
-					
-					<div className="card-body">
+
+					<div className="card-header">
 						<div className="row">
 							<div className="col">
 								<h3 className="card-title">{fish.name}</h3>
@@ -24,25 +24,26 @@ function FishList({ fishes }) {
 						</div>
 
 						<p className="text-secondary">Type: {fish.type}</p>
-						<div className="row">
-							<div className="col">
-								<p>
+					</div>
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item">
+							<div className="row">
+								<div className="col">
 									<b>Weight:</b>{" "}
 									{fish.caught && fish.caught.length > 0
 										? fish.caught[fish.caught.length - 1].weight + " oz"
 										: "N/A"}
-								</p>
-							</div>
-							<div className="col-auto">
-								<p>
+								</div>
+								<div className="col-auto">
 									<b>Length:</b>{" "}
 									{fish.caught && fish.caught.length > 0
 										? fish.caught[fish.caught.length - 1].length + " cm"
 										: "N/A"}
-								</p>
+								</div>
 							</div>
-						</div>
-						<hr></hr>
+						</li>
+					</ul>
+					<div className="card-body">
 						<h5>Catches</h5>
 						{fish.caught && (
 							<div>

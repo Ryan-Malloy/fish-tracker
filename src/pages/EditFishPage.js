@@ -2,6 +2,12 @@ import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { db } from "../config/firebase";
 import { get, ref, set } from "firebase/database";
+import {
+	getStorage,
+	ref as storageRef,
+	uploadBytes,
+	getDownloadURL,
+} from "firebase/storage";
 
 const initialFormData = {
 	name: "",
@@ -36,6 +42,7 @@ function EditFishPage() {
 				setFormData({
 					name: fetchedFish.name,
 					type: fetchedFish.type,
+					image: fetchedFish.image || null,
 					catches: fetchedFish.caught || initialFormData.catches,
 				});
 			}
@@ -92,24 +99,57 @@ function EditFishPage() {
 		});
 	};
 
-	const handleSubmit = (event) => {
+	// Function to upload a new image to Firebase Storage
+	const uploadImage = async (imageFile) => {
+		if (!imageFile) {
+			return null;
+		}
+
+		const storage = getStorage();
+		const storageReference = storageRef(
+			storage,
+			`fishImages/${imageFile.name}`
+		);
+		await uploadBytes(storageReference, imageFile);
+		const downloadURL = await getDownloadURL(storageReference);
+		return downloadURL;
+	};
+
+	const handleSubmit = async (event) => {
 		event.preventDefault();
-		const fishRef = ref(db, `fishes/${id}`);
-		set(fishRef, {
+
+		// Update: Upload image first and get the URL to be set in the fishRef
+		const imageUrl = await uploadImage(formData.image);
+
+		const updateData = {
 			name: formData.name,
 			type: formData.type,
-			image: formData.image,
-			caught: formData.catches.map((catchItem) => ({
-				date: catchItem.date,
-				weight: parseFloat(catchItem.weight),
-				length: parseFloat(catchItem.length),
-				location: catchItem.location,
-				lure: catchItem.lure,
-			})),
-		});
-		setFormData(initialFormData);
-		alert("Edit Successful!");
-		navigate("/admin");
+			image: imageUrl, // Update: Use the new image URL from the uploadImage function
+			caught: formData.catches.map((catchItem) => {
+				// Update: Safely parse the weight and length, avoiding NaN
+				const weight = parseFloat(catchItem.weight);
+				const length = parseFloat(catchItem.length);
+				return {
+					date: catchItem.date,
+					weight: isNaN(weight) ? 0 : weight, // Fallback to 0 if NaN
+					length: isNaN(length) ? 0 : length, // Fallback to 0 if NaN
+					location: catchItem.location,
+					lure: catchItem.lure,
+				};
+			}),
+		};
+
+		// Proceed to update the database only if the image upload was successful or there was no image to upload
+		if (imageUrl || !formData.image) {
+			const fishRef = ref(db, `fishes/${id}`);
+			await set(fishRef, updateData);
+			setFormData(initialFormData);
+			alert("Edit Successful!");
+			navigate("/admin");
+		} else {
+			// Handle the error scenario where image upload failed
+			alert("Image upload failed, please try again.");
+		}
 	};
 
 	if (!fish) {
@@ -127,6 +167,30 @@ function EditFishPage() {
 			<section>
 				<div className="container">
 					<form className="mx-auto" onSubmit={handleSubmit}>
+						<div className="row">
+							<div className="col">
+								<div className="mb-3">
+									{fish.image && (
+										<div>
+											<label htmlFor="fishImage">Current Image</label>
+											<img
+												src={fish.image}
+												className="edit-fish-img"
+												alt="Current Fish"
+												style={{ width: "100%", height: "auto" }}
+											/>
+										</div>
+									)}
+									<input
+										className="form-control edit-fish-input"
+										type="file"
+										name="image"
+										onChange={handleImageChange}
+										id="fishImage"
+									/>
+								</div>
+							</div>
+						</div>
 						<div className="row">
 							<div className="col">
 								<div className="form-floating mb-3">
@@ -156,17 +220,6 @@ function EditFishPage() {
 									<label htmlFor="fishType">Fish Type</label>
 								</div>
 							</div>
-							<div className="mb-3">
-								<label htmlFor="fishImage">Fish Image</label>
-								<input
-									className="form-control"
-									type="file"
-									name="image"
-									value={formData.image}
-									onChange={handleImageChange}
-									id="fishImage"
-								/>
-							</div>
 						</div>
 
 						<div className="row mb-1 align-items-center">
@@ -176,7 +229,7 @@ function EditFishPage() {
 							<div className="col-auto mb-1">
 								<button
 									type="button"
-									className="btn btn-sm btn-secondary"
+									className="btn btn-sm btn-primary"
 									onClick={handleAddCatch}
 								>
 									Add a Catch

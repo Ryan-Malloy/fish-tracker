@@ -14,3 +14,11 @@ hr {
     margin: 0;
     margin-bottom: 11px;
 }
+
+.edit-fish-img {
+    border-radius: 8px 8px 0px 0px;
+}
+
+.edit-fish-input {
+    border-radius: 0px 0px 8px 8px;
+}
