@@ -6,11 +6,7 @@ const Navbar = () => {
 
 	useEffect(() => {
 		const unsubscribe = auth.onAuthStateChanged((user) => {
-			if (user) {
-				setAdminLoggedIn(true);
-			} else {
-				setAdminLoggedIn(false);
-			}
+			setAdminLoggedIn(!!user);
 		});
 
 		return () => unsubscribe();
@@ -27,13 +23,13 @@ const Navbar = () => {
 
 	return (
 		<div>
-			<nav class="navbar navbar-expand-lg bg-body-tertiary">
-				<div class="container-fluid">
-					<a class="navbar-brand" href="/">
+			<nav className="navbar navbar-expand-lg bg-body-tertiary">
+				<div className="container-fluid">
+					<a className="navbar-brand" href="/">
 						FishTracker
 					</a>
 					<button
-						class="navbar-toggler"
+						className="navbar-toggler"
 						type="button"
 						data-bs-toggle="collapse"
 						data-bs-target="#navbarNav"
@@ -41,12 +37,12 @@ const Navbar = () => {
 						aria-expanded="false"
 						aria-label="Toggle navigation"
 					>
-						<span class="navbar-toggler-icon"></span>
+						<span className="navbar-toggler-icon"></span>
 					</button>
-					<div class="collapse navbar-collapse" id="navbarNav">
-						<ul class="navbar-nav">
+					<div className="collapse navbar-collapse" id="navbarNav">
+						<ul className="navbar-nav me-auto mb-2 mb-lg-0">
 							<li className="nav-item">
-								<a class="nav-link" aria-current="page" href="/">
+								<a className="nav-link" aria-current="page" href="/">
 									Home
 								</a>
 							</li>
@@ -60,13 +56,18 @@ const Navbar = () => {
 								<div></div>
 							)}
 						</ul>
-						<div className="ms-auto">
+						<div className="ms-auto flex-column flex-lg-row align-items-lg-center">
 							{isAdminLoggedIn ? (
-								<button className="btn btn-outline-secondary" onClick={handleSignOut}>
-									Sign Out
-								</button>
+								<>
+									<button
+										className="btn btn-link nav-link"
+										onClick={handleSignOut}
+									>
+										Sign Out
+									</button>
+								</>
 							) : (
-								<a className="btn btn-secondary" href="/admin/login">
+								<a className="nav-link" href="/admin/login">
 									Admin Login
 								</a>
 							)}
