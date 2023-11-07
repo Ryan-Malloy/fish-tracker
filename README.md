@@ -27,9 +27,7 @@ cd fish-tracker
 
 2. **Install Dependencies**
 
-```
-    npm install
-```
+```npm install```
 
 3. **Set up Firebase**
 
@@ -37,9 +35,7 @@ Create a Firebase project and add your Firebase config to a **.env** file at the
 
 4. **Start the development server**
 
-```
-    npm start
-```
+```npm start```
 
 The app should now be running on http://localhost:3000.
 
