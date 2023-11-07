@@ -34,7 +34,7 @@ npm install
 
 3. **Set up Firebase**
 
-Create a Firebase project and add your Firebase config to a **.env** file at the root of your project using the template provided in the **.env.example** file.
+Create a Firebase project and add your Firebase config to a **.env** file at the root of your project.
 
 4. **Start the development server**
 
