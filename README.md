@@ -26,3 +26,31 @@ cd fish-tracker
 ```
 
 2. **Install Dependencies**
+
+```
+    npm install
+```
+
+3. **Set up Firebase**
+
+Create a Firebase project and add your Firebase config to a **.env** file at the root of your project using the template provided in the **.env.example** file.
+
+4. **Start the development server**
+
+```
+    npm start
+```
+
+The app should now be running on http://localhost:3000.
+
+### Summary of Design and Development Choices
+In designing the Fish Tracker App, I aimed to create a responsive, user-friendly interface that could be easily navigated on both desktop and mobile devices. React.js was chosen for its component-based architecture, making the UI modular and maintainable.
+
+Firebase was selected for the backend due to its ease of use, scalability, and seamless integration with the front-end. It eliminated the need for setting up a separate backend server, thus speeding up development.
+
+I also decided to use Bootstrap for styling to ensure a consistent look across different browsers and devices. It also helped in speeding up the development process by providing a set of pre-designed components.
+
+For source control, Git was used, and the repository was hosted on GitHub, providing a comprehensive version control system and easy code reviews.
+
+### Contributors
+**Ryan Malloy**
