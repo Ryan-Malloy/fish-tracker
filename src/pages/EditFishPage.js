@@ -99,7 +99,6 @@ function EditFishPage() {
 		});
 	};
 
-	// Function to upload a new image to Firebase Storage
 	const uploadImage = async (imageFile) => {
 		if (!imageFile) {
 			return null;
@@ -118,28 +117,25 @@ function EditFishPage() {
 	const handleSubmit = async (event) => {
 		event.preventDefault();
 
-		// Update: Upload image first and get the URL to be set in the fishRef
 		const imageUrl = await uploadImage(formData.image);
 
 		const updateData = {
 			name: formData.name,
 			type: formData.type,
-			image: imageUrl, // Update: Use the new image URL from the uploadImage function
+			image: imageUrl,
 			caught: formData.catches.map((catchItem) => {
-				// Update: Safely parse the weight and length, avoiding NaN
 				const weight = parseFloat(catchItem.weight);
 				const length = parseFloat(catchItem.length);
 				return {
 					date: catchItem.date,
-					weight: isNaN(weight) ? 0 : weight, // Fallback to 0 if NaN
-					length: isNaN(length) ? 0 : length, // Fallback to 0 if NaN
+					weight: isNaN(weight) ? 0 : weight,
+					length: isNaN(length) ? 0 : length,
 					location: catchItem.location,
 					lure: catchItem.lure,
 				};
 			}),
 		};
 
-		// Proceed to update the database only if the image upload was successful or there was no image to upload
 		if (imageUrl || !formData.image) {
 			const fishRef = ref(db, `fishes/${id}`);
 			await set(fishRef, updateData);
@@ -147,7 +143,6 @@ function EditFishPage() {
 			alert("Edit Successful!");
 			navigate("/admin");
 		} else {
-			// Handle the error scenario where image upload failed
 			alert("Image upload failed, please try again.");
 		}
 	};

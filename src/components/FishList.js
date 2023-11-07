@@ -25,8 +25,8 @@ function FishList({ fishes }) {
 
 						<p className="text-secondary">Type: {fish.type}</p>
 					</div>
-					<ul class="list-group list-group-flush">
-						<li class="list-group-item">
+					<ul className="list-group list-group-flush">
+						<li className="list-group-item">
 							<div className="row">
 								<div className="col">
 									<b>Weight:</b>{" "}

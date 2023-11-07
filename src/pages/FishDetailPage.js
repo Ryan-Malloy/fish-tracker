@@ -28,13 +28,19 @@ function FishDetailPage({ fishes }) {
 							<div className="col">
 								<h3>{fish.name}</h3>
 								<p className="text-secondary">{fish.type}</p>
+								{fish.imageUrl && (
+									<image
+										src={fish.imageUrl}
+										alt={`Image of ${fish.name}`}
+										className="img-fluid"
+									/>
+								)}
 							</div>
 							<div className="col-auto">
-							<small className="text-secondary">ID: {fish.key}</small>
+								<small className="text-secondary">ID: {fish.key}</small>
 							</div>
 						</div>
 
-						
 						<table className="table table-striped">
 							<thead>
 								<tr>
@@ -50,7 +56,7 @@ function FishDetailPage({ fishes }) {
 								{fish.caught &&
 									[...fish.caught].map((catchDetails, index) => (
 										<tr key={index}>
-											<th scope="row">{index+1}</th>
+											<th scope="row">{index + 1}</th>
 											<td>{catchDetails.date}</td>
 											<td>{catchDetails.weight} oz</td>
 											<td>{catchDetails.length} cm</td>
