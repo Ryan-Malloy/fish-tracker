@@ -2,7 +2,7 @@
 
 ## Overview
 
-Fish Tracker is a React-based application designed for fish enthusiasts to track and monitor their fish collections. This app provides a user-friendly interface for managing fish databases, including features for admins such as dashboard access and image uploads.
+Fish Tracker is a comprehensive React-based web application engineered to serve hatchery managers. The platform is tailored to facilitate the inventory management and monitoring of fish populations allowing for detailed tracking of fish growth and statistics over time.
 
 ### Tech Stack and Architecture
 
