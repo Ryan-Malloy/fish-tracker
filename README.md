@@ -11,8 +11,9 @@ Fish Tracker is a React-based application designed for fish enthusiasts to track
 - **Database:** Firebase Realtime Database
 - **Storage:** Firebase Cloud Storage
 - **Styling:** Bootstrap with custom CSS
+- **Routing:** React Router
 
-The front-end is built using React.js, creating a single-page application (SPA) that interacts with Firebase for backend operations. The Firebase Authentication is used for handling user sign-in and sign-out processes. Firebase Realtime Database is utilized for storing fish data, and Firebase Cloud Storage is used for image uploads.
+The front-end is built using React.js, creating a single-page application (SPA) that interacts with Firebase for backend operations. Firebase Authentication is used for handling user sign-in and sign-out processes. Firebase Realtime Database is utilized for storing fish data, and Firebase Cloud Storage is used for image uploads. Bootstrap is used for responsive styling, and React Router manages navigation within the app.
 
 ### Setup and Installation Instructions
 
@@ -54,3 +55,4 @@ For source control, Git was used, and the repository was hosted on GitHub, provi
 
 ### Contributors
 **Ryan Malloy**
+
