@@ -28,13 +28,6 @@ function FishDetailPage({ fishes }) {
 							<div className="col">
 								<h3>{fish.name}</h3>
 								<p className="text-secondary">{fish.type}</p>
-								{fish.imageUrl && (
-									<image
-										src={fish.imageUrl}
-										alt={`Image of ${fish.name}`}
-										className="img-fluid"
-									/>
-								)}
 							</div>
 							<div className="col-auto">
 								<small className="text-secondary">ID: {fish.key}</small>
