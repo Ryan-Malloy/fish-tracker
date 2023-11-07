@@ -13,13 +13,13 @@ import {
 } from "firebase/storage";
 
 const firebaseConfig = {
-	apiKey: process.env.REACT_APP_API_KEY,
-	authDomain: process.env.REACT_APP_AUTH_DOMAIN,
-	databaseURL: process.env.REACT_APP_DATABASE_URL,
-	projectId: process.env.REACT_APP_PROJECT_ID,
-	storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
-	messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
-	appId: process.env.REACT_APP_APP_ID
+	apiKey: "AIzaSyBSMrzxmFom89rD6XZj9jTObYKiaCAYLjw",
+	authDomain: "fish-tracker-f7b65.firebaseapp.com",
+	databaseURL: "https://fish-tracker-f7b65-default-rtdb.firebaseio.com",
+	projectId: "fish-tracker-f7b65",
+	storageBucket: "fish-tracker-f7b65.appspot.com",
+	messagingSenderId: "1058507014154",
+	appId: "1:1058507014154:web:223b5e3a3f89d9f9bd9ff3"
   };
 
 const app = initializeApp(firebaseConfig);
